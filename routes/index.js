@@ -1,0 +1,132 @@
+/**
+ * Module dependencies
+ */
+const errors = require('restify-errors')
+
+/**
+ * Models Schema
+ */
+const Spot = require('../models/spot')
+const Team = require('../models/team')
+const Media = require('../models/media')
+
+module.exports = (server) => {
+	/**
+	 * POST
+	 */
+	server.post('/spots', (req, res, next) => {
+		if (!req.is('application/json')) {
+			return next(
+				new errors.InvalidContentError(`Expects 'application/json'`)
+			)
+		}
+
+		let data = req.body || {}
+
+		let spot = new Spots(data)
+		spot.save((err) => {
+			if (err) {
+				console.error(err)
+				return next(new errors.InternalError(err.message))
+				next()
+			}
+
+			res.send(201)
+			next()
+		})
+	})
+
+	/**
+	 * LIST
+	 */
+	server.get('/spots', (req, res, next) => {
+		Spot.apiQuery(req.params, (err, docs) => {
+			if (err) {
+				console.error(err)
+				return nex(
+					new errors.InvalidContentError(err.message)
+				)
+			}
+
+			res.send(docs)
+			next()
+		})
+	})
+
+	/**
+	 * GET
+	 */
+	server.get('/spots/:spot_id', (req, res, next) => {
+		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
+			if (err) {
+				console.error(err)
+				return next(
+					new errors.InvalidContentError(err.message)
+				)
+			}
+
+			res.send(doc)
+			next()
+		})
+	})
+
+	/**
+	 * UPDATE
+	 */
+	server.put('/spots/:spots_id', (req, res, next) => {
+		if (!req.is('application/json')) {
+			return next(
+				new errors.InvalidContentError("Expects 'application/json'")
+			)
+		}
+
+		let data = req.body || {}
+
+		if (!data._id) {
+			data = Object.assign({}, data, { _id: req.params.post_id })
+		}
+
+		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
+			if (err) {
+				console.error(err)
+				return next(
+					new errors.InvalidContentError(err.message)
+				)
+			}
+			else if (!doc) {
+				return next(
+					new errors.ResourceNotFoundError('The resource you requested could not be found')
+				)
+			}
+
+			Spot.update({ _id: data._id }, data, (err) => {
+				if (err) {
+					console.error(err)
+					return next(
+						new errors.InvalidContentError(err.message)
+					)
+				}
+
+				res.send(200, data)
+				next()
+			})
+		})
+	})
+
+	/**
+	 * DELETE
+	 */
+	server.del('/spots/:spot_id', (req, res, next) => {
+		Spot.remove({ _id: req.params.spot_id }, (err) => {
+			if (err) {
+				console.error(err)
+				return next(
+					new errors.InvalidContentError(err.message)
+				)
+			}
+
+			res.send(204)
+			next()
+		})
+	})
+}

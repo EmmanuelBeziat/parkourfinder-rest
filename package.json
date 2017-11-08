@@ -1,0 +1,28 @@
+{
+	"name": "parkourfinder-rest",
+	"version": "1.0.0",
+	"description": "Node REST Api",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/EmmanuelBeziat/parkourfinder-rest.git"
+	},
+	"author": "EmmanuelBeziat <contact@emmanuelbeziat.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/EmmanuelBeziat/parkourfinder-rest/issues"
+	},
+	"homepage": "https://github.com/EmmanuelBeziat/parkourfinder-rest#readme",
+	"devDependencies": {},
+	"dependencies": {
+		"mongoose": "^4.13.0",
+		"mongoose-string-query": "^0.2.5",
+		"mongoose-timestamp": "^0.6.0",
+		"restify": "^6.3.1",
+		"restify-errors": "^5.0.0",
+		"restify-plugins": "^1.6.0"
+	}
+}
