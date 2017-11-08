@@ -26,7 +26,6 @@ module.exports = (server) => {
 		let spot = new Spots(data)
 		spot.save((err) => {
 			if (err) {
-				console.error(err)
 				return next(new errors.InternalError(err.message))
 				next()
 			}
@@ -42,7 +41,6 @@ module.exports = (server) => {
 	server.get('/spots', (req, res, next) => {
 		Spot.apiQuery(req.params, (err, docs) => {
 			if (err) {
-				console.error(err)
 				return nex(
 					new errors.InvalidContentError(err.message)
 				)
@@ -59,7 +57,6 @@ module.exports = (server) => {
 	server.get('/spots/:spot_id', (req, res, next) => {
 		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
 			if (err) {
-				console.error(err)
 				return next(
 					new errors.InvalidContentError(err.message)
 				)
@@ -88,7 +85,6 @@ module.exports = (server) => {
 
 		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
 			if (err) {
-				console.error(err)
 				return next(
 					new errors.InvalidContentError(err.message)
 				)
@@ -101,7 +97,6 @@ module.exports = (server) => {
 
 			Spot.update({ _id: data._id }, data, (err) => {
 				if (err) {
-					console.error(err)
 					return next(
 						new errors.InvalidContentError(err.message)
 					)
@@ -119,7 +114,6 @@ module.exports = (server) => {
 	server.del('/spots/:spot_id', (req, res, next) => {
 		Spot.remove({ _id: req.params.spot_id }, (err) => {
 			if (err) {
-				console.error(err)
 				return next(
 					new errors.InvalidContentError(err.message)
 				)
