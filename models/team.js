@@ -5,13 +5,6 @@ const timestamps = require('mongoose-timestamp')
 
 const TeamSchema = new mongoose.Schema(
 	{
-		slug: {
-			type: String,
-			unique: true,
-			required: true,
-			lowercase: true,
-			trim: true,
-		},
 		name: {
 			type: String,
 			required: true,

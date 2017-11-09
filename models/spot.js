@@ -32,10 +32,10 @@ const SpotSchema = new mongoose.Schema(
 				trim: true,
 			}
 		},
-		team: {
+		team: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Team'
-		},
+		}],
 		description: {
 			type: String,
 		},
