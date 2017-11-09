@@ -11,7 +11,10 @@ const MediaSchema = new mongoose.Schema(
 			required: true,
 			trim: true,
 		},
-		spot: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Spot' }],
+		spot: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Spot'
+		}],
 	},
 	{
 		minimize: false
