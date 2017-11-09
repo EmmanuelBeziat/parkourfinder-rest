@@ -38,7 +38,9 @@ server.listen(config.port, () => {
 	})
 
 	db.once('open', () => {
-	    require('./routes')(server)
+	    require('./routes/spot')(server)
+	    require('./routes/team')(server)
+	    require('./routes/media')(server)
 	    console.log(`Server is listening on port ${config.port}`)
 	})
 })

@@ -1,16 +1,10 @@
 const mongoose = require('mongoose')
 const mongooseStringQuery = require('mongoose-string-query')
+const mongooseUrlSlugs = require('mongoose-url-slugs')
 const timestamps = require('mongoose-timestamp')
 
 const SpotSchema = new mongoose.Schema(
 	{
-		slug: {
-			type: String,
-			unique: true,
-			required: true,
-			lowercase: true,
-			trim: true,
-		},
 		title: {
 			type: String,
 			required: true,
@@ -38,10 +32,13 @@ const SpotSchema = new mongoose.Schema(
 				trim: true,
 			}
 		},
-		team: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
+		team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
 		description: {
 			type: String,
 		},
+		medias: [{
+			type: mongoose.Schema.Types.ObjectId, ref: 'Media'
+		}],
 		status: {
 			type: String,
 			required: true,
@@ -56,6 +53,7 @@ const SpotSchema = new mongoose.Schema(
 
 SpotSchema.plugin(timestamps)
 SpotSchema.plugin(mongooseStringQuery)
+SpotSchema.plugin(mongooseUrlSlugs('location.city title'))
 
 const Spot = mongoose.model('Spot', SpotSchema)
 

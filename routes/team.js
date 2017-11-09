@@ -6,15 +6,13 @@ const errors = require('restify-errors')
 /**
  * Models Schema
  */
-const Spot = require('../models/spot')
 const Team = require('../models/team')
-const Media = require('../models/media')
 
 module.exports = (server) => {
 	/**
 	 * POST
 	 */
-	server.post('/spots', (req, res, next) => {
+	server.post('/teams', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError(`Expects 'application/json'`)
@@ -23,8 +21,8 @@ module.exports = (server) => {
 
 		let data = req.body || {}
 
-		let spot = new Spots(data)
-		spot.save((err) => {
+		let team = new Team(data)
+		team.save((err) => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
 				next()
@@ -38,8 +36,8 @@ module.exports = (server) => {
 	/**
 	 * LIST
 	 */
-	server.get('/spots', (req, res, next) => {
-		Spot.apiQuery(req.params, (err, docs) => {
+	server.get('/teams', (req, res, next) => {
+		Team.apiQuery(req.params, (err, docs) => {
 			if (err) {
 				return nex(
 					new errors.InvalidContentError(err.message)
@@ -54,8 +52,8 @@ module.exports = (server) => {
 	/**
 	 * GET
 	 */
-	server.get('/spots/:spot_id', (req, res, next) => {
-		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
+	server.get('/teams/:team_id', (req, res, next) => {
+		Team.findOne({ _id: req.params.team_id }, (err, doc) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)
@@ -70,7 +68,7 @@ module.exports = (server) => {
 	/**
 	 * UPDATE
 	 */
-	server.put('/spots/:spots_id', (req, res, next) => {
+	server.put('/teams/:teams_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'")
@@ -83,7 +81,7 @@ module.exports = (server) => {
 			data = Object.assign({}, data, { _id: req.params.post_id })
 		}
 
-		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
+		Team.findOne({ _id: req.params.team_id }, (err, doc) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)
@@ -95,7 +93,7 @@ module.exports = (server) => {
 				)
 			}
 
-			Spot.update({ _id: data._id }, data, (err) => {
+			Team.update({ _id: data._id }, data, (err) => {
 				if (err) {
 					return next(
 						new errors.InvalidContentError(err.message)
@@ -111,8 +109,8 @@ module.exports = (server) => {
 	/**
 	 * DELETE
 	 */
-	server.del('/spots/:spot_id', (req, res, next) => {
-		Spot.remove({ _id: req.params.spot_id }, (err) => {
+	server.del('/teams/:team_id', (req, res, next) => {
+		Team.remove({ _id: req.params.team_id }, (err) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)

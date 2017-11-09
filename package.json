@@ -21,6 +21,7 @@
 		"mongoose": "^4.13.0",
 		"mongoose-string-query": "^0.2.5",
 		"mongoose-timestamp": "^0.6.0",
+		"mongoose-url-slugs": "^1.0.2",
 		"restify": "^6.3.1",
 		"restify-errors": "^5.0.0",
 		"restify-plugins": "^1.6.0"
