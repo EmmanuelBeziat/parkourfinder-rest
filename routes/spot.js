@@ -52,8 +52,8 @@ module.exports = (server) => {
 	/**
 	 * GET
 	 */
-	server.get('/spots/:spot_id', (req, res, next) => {
-		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
+	server.get('/spots/:slug', (req, res, next) => {
+		Spot.findOne({ slug: req.params.slug }, (err, doc) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)

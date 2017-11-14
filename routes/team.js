@@ -52,8 +52,8 @@ module.exports = (server) => {
 	/**
 	 * GET
 	 */
-	server.get('/teams/:team_id', (req, res, next) => {
-		Team.findOne({ _id: req.params.team_id }, (err, doc) => {
+	server.get('/teams/:slug', (req, res, next) => {
+		Team.findOne({ slug: req.params.slug }, (err, doc) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)
