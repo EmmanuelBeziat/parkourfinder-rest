@@ -68,7 +68,7 @@ module.exports = (server) => {
 	/**
 	 * UPDATE
 	 */
-	server.put('/spots/:spots_id', (req, res, next) => {
+	server.put('/spots/:spot_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'")
