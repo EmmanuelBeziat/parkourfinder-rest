@@ -78,7 +78,7 @@ module.exports = (server) => {
 		let data = req.body || {}
 
 		if (!data._id) {
-			data = Object.assign({}, data, { _id: req.params.post_id })
+			data = Object.assign({}, data, { _id: req.params.spot_id })
 		}
 
 		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
