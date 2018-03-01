@@ -11,6 +11,16 @@ const MediaSchema = new mongoose.Schema(
 			required: true,
 			trim: true,
 		},
+		filetype: {
+			type: String,
+			enum: ['picture', 'video'],
+			default: 'picture',
+			required: true
+		},
+		url: {
+			type: String,
+			required: true
+		},
 		spot: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Spot'

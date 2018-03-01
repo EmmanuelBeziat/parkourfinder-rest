@@ -52,8 +52,8 @@ module.exports = (server) => {
 	/**
 	 * GET
 	 */
-	server.get('/medias/:media_id', (req, res, next) => {
-		Media.findOne({ _id: req.params.media_id }, (err, doc) => {
+	server.get('/medias/:media_url', (req, res, next) => {
+		Media.findOne({ _id: req.params.media_url }, (err, doc) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)
