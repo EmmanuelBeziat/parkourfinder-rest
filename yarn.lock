@@ -409,6 +409,10 @@ mongodb@2.2.33:
     mongodb-core "2.1.17"
     readable-stream "2.2.7"
 
+mongoose-patch-update@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/mongoose-patch-update/-/mongoose-patch-update-1.0.6.tgz#7092dcf1896ba3a02f749f4247acbe65cb3a32dd"
+
 mongoose-string-query@^0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/mongoose-string-query/-/mongoose-string-query-0.2.5.tgz#65c0f4951610a28e1efac5f3a5fb0c84830bffd1"
