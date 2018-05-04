@@ -30,6 +30,11 @@ const SpotSchema = new mongoose.Schema(
 				type: String,
 				required: true,
 				trim: true,
+			},
+			complementary: {
+				type: String,
+				required: false,
+				trim: true
 			}
 		},
 		team: [{
@@ -38,6 +43,7 @@ const SpotSchema = new mongoose.Schema(
 		}],
 		description: {
 			type: String,
+			trim: true
 		},
 		medias: [{
 			type: mongoose.Schema.Types.ObjectId, ref: 'Media'
