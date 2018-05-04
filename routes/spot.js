@@ -108,6 +108,47 @@ module.exports = (server) => {
 	})
 
 	/**
+	 * PATCH
+	 */
+	server.patch('/spots/:spot_id', (req, res, next) =>{
+		if (!req.is('application/json')) {
+			return next(
+				new errors.InvalidContentError("Expects 'application/json'")
+			)
+		}
+
+		let data = req.body || {}
+
+		if (!data._id) {
+			data = Object.assign({}, data, { _id: req.params.spot_id })
+		}
+
+		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
+			if (err) {
+				return next(
+					new errors.InvalidContentError(err.message)
+				)
+			}
+			else if (!doc) {
+				return next(
+					new errors.ResourceNotFoundError('The resource you requested could not be found')
+				)
+			}
+
+			Spot.mongoosePatchUpdate({ _id: data._id }, data, ['_id'], '', (err) => {
+				if (err) {
+					return next(
+						new errors.InvalidContentError(err.message)
+					)
+				}
+
+				res.send(200, data)
+				next()
+			})
+		})
+	})
+
+	/**
 	 * DELETE
 	 */
 	server.del('/spots/:spot_id', (req, res, next) => {
