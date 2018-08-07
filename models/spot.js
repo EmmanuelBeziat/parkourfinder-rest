@@ -46,7 +46,7 @@ const SpotSchema = new mongoose.Schema(
 			trim: true
 		},
 		medias: [{
-			type: mongoose.Schema.Types.ObjectId, ref: 'Media'
+			type: Array
 		}],
 		status: {
 			type: String,

@@ -5,7 +5,6 @@ const config = require('./config')
 const restify = require('restify')
 const mongoose = require('mongoose')
 const serveStatic = require('serve-static-restify')
-const restifyPlugins = require('restify-plugins')
 const corsMiddleware = require('restify-cors-middleware')
 
 /**
@@ -26,10 +25,10 @@ const cors = corsMiddleware({
 /**
   * Middleware
   */
-server.use(restifyPlugins.jsonBodyParser({ mapParams: true }))
-server.use(restifyPlugins.acceptParser(server.acceptable))
-server.use(restifyPlugins.queryParser({ mapParams: true }))
-server.use(restifyPlugins.fullResponse())
+server.use(restify.plugins.jsonBodyParser({ mapParams: true }))
+server.use(restify.plugins.acceptParser(server.acceptable))
+server.use(restify.plugins.queryParser({ mapParams: true }))
+server.use(restify.plugins.fullResponse())
 server.pre(cors.preflight)
 server.pre(serveStatic(__dirname + '/public'))
 server.use(cors.actual)

@@ -2,6 +2,22 @@
  * Module dependencies
  */
 const errors = require('restify-errors')
+const multer = require('multer')
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, '../../uploads/')
+	},
+	filename: (req, file, cb) => {
+		cb(null, new Date.now() + '_' + file.originalname)
+	}
+})
+const fileFilter = (req, file, cb) => {
+	if (!file.mimetype === 'image/jpeg' || !file.mimetype === 'image/gif') {
+		cb(new Error('Not allowed file'), false)
+	}
+	cb(null, true)
+}
+const upload = multer({ storage, limits, fileFilter })
 
 /**
  * Models Schema
@@ -12,10 +28,10 @@ module.exports = (server) => {
 	/**
 	 * POST
 	 */
-	server.post('/medias', (req, res, next) => {
-		if (!req.is('application/json')) {
+	server.post('/medias', multer.single('media'), (req, res, next) => {
+		if (!req.is('multipart/form-data')) {
 			return next(
-				new errors.InvalidContentError(`Expects 'application/json'`)
+				new errors.InvalidContentError(`Expects 'multipart/form-data'`)
 			)
 		}
 
