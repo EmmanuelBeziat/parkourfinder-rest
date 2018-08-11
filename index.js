@@ -39,19 +39,19 @@ server.use(cors.actual)
 server.listen(config.port, () => {
 	// establish connection to mongodb
 	mongoose.Promise = global.Promise
-	mongoose.connect(config.db.uri, { useMongoClient: true })
+	mongoose.connect(config.db.uri, { useNewUrlParser: true })
 
 	const db = mongoose.connection
 
 	db.on('error', (err) => {
-	    console.error(err)
-	    process.exit(1)
+		console.error(err)
+		process.exit(1)
 	})
 
 	db.once('open', () => {
-	    require('./routes/spot')(server)
-	    require('./routes/team')(server)
-	    require('./routes/media')(server)
-	    console.log(`Server is listening on port ${config.port}`)
+		require('./routes/spot')(server)
+		require('./routes/team')(server)
+		require('./routes/media')(server)
+		console.log(`Server is listening on port ${config.port}`)
 	})
 })

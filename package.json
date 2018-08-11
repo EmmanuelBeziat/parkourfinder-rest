@@ -18,7 +18,7 @@
 	"homepage": "https://github.com/EmmanuelBeziat/parkourfinder-rest#readme",
 	"devDependencies": {},
 	"dependencies": {
-		"mongoose": "^4.13.0",
+		"mongoose": "^5.2.7",
 		"mongoose-patch-update": "^1.0.6",
 		"mongoose-string-query": "^0.2.5",
 		"mongoose-timestamp": "^0.6.0",
@@ -28,6 +28,6 @@
 		"restify-cors-middleware": "^1.1.1",
 		"restify-errors": "^6.1.1",
 		"restify-plugins": "^1.6.0",
-		"serve-static-restify": "^2.1.0"
+		"serve-static-restify": "^3.0.0"
 	}
 }

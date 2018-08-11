@@ -29,6 +29,7 @@ module.exports = (server) => {
 	 * POST
 	 */
 	server.post('/medias', multer.single('media'), (req, res, next) => {
+		console.log(req.body)
 		if (!req.is('multipart/form-data')) {
 			return next(
 				new errors.InvalidContentError(`Expects 'multipart/form-data'`)

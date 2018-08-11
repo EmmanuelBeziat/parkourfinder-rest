@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const mongooseStringQuery = require('mongoose-string-query')
-const mongooseUrlSlugs = require('mongoose-url-slugs')
+// const mongooseUrlSlugs = require('mongoose-url-slugs')
 const timestamps = require('mongoose-timestamp')
 
 const MediaSchema = new mongoose.Schema(
@@ -21,10 +21,6 @@ const MediaSchema = new mongoose.Schema(
 			type: String,
 			required: true
 		},
-		spot: [{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Spot'
-		}],
 	},
 	{
 		minimize: false

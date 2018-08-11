@@ -46,7 +46,9 @@ const SpotSchema = new mongoose.Schema(
 			trim: true
 		},
 		medias: [{
-			type: Array
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Media',
+			validate: [arrayLimit, '{PATH} exceeds the limit of 4']
 		}],
 		status: {
 			type: String,
@@ -59,6 +61,10 @@ const SpotSchema = new mongoose.Schema(
 		minimize: false
 	}
 )
+
+function arrayLimit (value) {
+	return value.length <= 4
+}
 
 SpotSchema.plugin(timestamps)
 SpotSchema.plugin(mongooseStringQuery)
