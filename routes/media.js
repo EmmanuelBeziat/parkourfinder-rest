@@ -3,6 +3,9 @@
  */
 const errors = require('restify-errors')
 const multer = require('multer')
+const mongoose = require('mongoose')
+const isObjectId = mongoose.Types.ObjectId.isValid
+
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, '../../uploads/')
@@ -17,6 +20,7 @@ const fileFilter = (req, file, cb) => {
 	}
 	cb(null, true)
 }
+const limits = () => { }
 const upload = multer({ storage, limits, fileFilter })
 
 /**
@@ -28,8 +32,8 @@ module.exports = (server) => {
 	/**
 	 * POST
 	 */
-	server.post('/medias', multer.single('media'), (req, res, next) => {
-		console.log(req.body)
+	// multer.single('media'),
+	server.post('/medias', (req, res, next) => {
 		if (!req.is('multipart/form-data')) {
 			return next(
 				new errors.InvalidContentError(`Expects 'multipart/form-data'`)
@@ -37,8 +41,8 @@ module.exports = (server) => {
 		}
 
 		let data = req.body || {}
-
 		let media = new Media(data)
+
 		media.save((err) => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
@@ -68,7 +72,8 @@ module.exports = (server) => {
 
 	/**
 	 * GET
-	 */
+	 **
+	/¨
 	server.get('/medias/:media_url', (req, res, next) => {
 		Media.findOne({ _id: req.params.media_url }, (err, doc) => {
 			if (err) {
@@ -80,6 +85,14 @@ module.exports = (server) => {
 			res.send(doc)
 			next()
 		})
+	})
+	*/
+
+	server.get('/medias/:id', (req, res, next) => {
+		const promise = isObjectId(req.params.id)
+			? Team.findOne({ _id: req.params.id })
+			: Team.findOne({ filename: req.params.id })
+		promise.then(team => res.send(team)).catch(next)
 	})
 
 	/**

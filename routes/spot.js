@@ -3,26 +3,7 @@
  */
 const errors = require('restify-errors')
 const mongoosePatchUpdate = require('mongoose-patch-update')
-const multer = require('multer')
 
-const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, '../../uploads/')
-	},
-	filename: (req, file, cb) => {
-		cb(null, new Date.now() + '_' + file.originalname)
-	}
-})
-const fileFilter = (req, file, cb) => {
-	if (!file.mimetype === 'image/jpeg' || !file.mimetype === 'image/gif') {
-		cb(new Error('Not allowed file'), false)
-	}
-	cb(null, true)
-}
-const limits = () => {
-
-}
-const upload = multer({ storage, limits, fileFilter })
 
 /**
  * Models Schema

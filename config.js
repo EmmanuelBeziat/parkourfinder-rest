@@ -4,6 +4,6 @@ module.exports = {
 	port: process.env.PORT || 3030,
 	base_url: process.env.BASE_URL || 'http://localhost:3030',
 	db: {
-		uri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/parkourfinder',
+		uri: process.env.MONGODB_URI || 'mongodb://163.172.49.220:27017/parkourfinder',
 	}
 }
