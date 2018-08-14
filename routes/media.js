@@ -68,31 +68,6 @@ module.exports = (server) => {
 	})
 
 	/**
-	 * GET
-	 **
-	/¨
-	server.get('/medias/:media_url', (req, res, next) => {
-		Media.findOne({ _id: req.params.media_url }, (err, doc) => {
-			if (err) {
-				return next(
-					new errors.InvalidContentError(err.message)
-				)
-			}
-
-			res.send(doc)
-			next()
-		})
-	})
-	*/
-
-	server.get('/medias/:id', (req, res, next) => {
-		const promise = isObjectId(req.params.id)
-			? Team.findOne({ _id: req.params.id })
-			: Team.findOne({ filename: req.params.id })
-		promise.then(team => res.send(team)).catch(next)
-	})
-
-	/**
 	 * UPDATE
 	 */
 	server.put('/medias/:medias_id', (req, res, next) => {
