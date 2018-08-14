@@ -1,11 +1,15 @@
+const config = require('../config')
 const mongoose = require('mongoose')
 const mongooseStringQuery = require('mongoose-string-query')
 // const mongooseUrlSlugs = require('mongoose-url-slugs')
-const timestamps = require('mongoose-timestamp')
-
+// const timestamps = require('mongoose-timestamp')
 const MediaSchema = new mongoose.Schema(
 	{
 		filename: {
+			type: String,
+			trim: true
+		},
+		name: {
 			type: String,
 			unique: true,
 			required: true,
@@ -19,15 +23,16 @@ const MediaSchema = new mongoose.Schema(
 		},
 		url: {
 			type: String,
+			default: config.base_url,
 			required: true
-		},
+		}
 	},
 	{
 		minimize: false
 	}
 )
 
-MediaSchema.plugin(timestamps)
+// MediaSchema.plugin(timestamps)
 MediaSchema.plugin(mongooseStringQuery)
 
 const Media = mongoose.model('Media', MediaSchema)

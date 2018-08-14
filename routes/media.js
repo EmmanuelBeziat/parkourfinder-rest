@@ -1,27 +1,12 @@
 /**
  * Module dependencies
  */
+const config = require('../config')
 const errors = require('restify-errors')
-const multer = require('multer')
 const mongoose = require('mongoose')
 const isObjectId = mongoose.Types.ObjectId.isValid
-
-const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, '../../uploads/')
-	},
-	filename: (req, file, cb) => {
-		cb(null, new Date.now() + '_' + file.originalname)
-	}
-})
-const fileFilter = (req, file, cb) => {
-	if (!file.mimetype === 'image/jpeg' || !file.mimetype === 'image/gif') {
-		cb(new Error('Not allowed file'), false)
-	}
-	cb(null, true)
-}
-const limits = () => { }
-const upload = multer({ storage, limits, fileFilter })
+const randomstring = require('randomstring')
+const base64ToImage = require('base64-to-image')
 
 /**
  * Models Schema
@@ -34,17 +19,29 @@ module.exports = (server) => {
 	 */
 	// multer.single('media'),
 	server.post('/medias', (req, res, next) => {
-		if (!req.is('multipart/form-data')) {
+		/* if (!req.is('multipart/form-data')) {
 			return next(
 				new errors.InvalidContentError(`Expects 'multipart/form-data'`)
+			)
+		} */
+		if (!req.is('application/json')) {
+			return next(
+				new errors.InvalidContentError("Expects 'application/json'")
 			)
 		}
 
 		let data = req.body || {}
-		let media = new Media(data)
-
+		const name = Date.now() + '-' + randomstring.generate({ length: 8, capitalization: 'lowercase' }) + '.' + data.filename.split('.').pop()
+		let media = new Media({
+			name: name,
+			filename: data.filename,
+			url: `${config.base_url}/${name}`
+		})
+		base64ToImage(data.uri, config.images_path, { fileName: name })
+		console.log(media)
 		media.save((err) => {
 			if (err) {
+				console.log(err)
 				return next(new errors.InternalError(err.message))
 				next()
 			}
