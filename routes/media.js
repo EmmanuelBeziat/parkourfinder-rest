@@ -3,8 +3,6 @@
  */
 const config = require('../config')
 const errors = require('restify-errors')
-const mongoose = require('mongoose')
-const isObjectId = mongoose.Types.ObjectId.isValid
 const randomstring = require('randomstring')
 const base64ToImage = require('base64-to-image')
 
@@ -38,10 +36,8 @@ module.exports = (server) => {
 			url: `${config.base_url}/${name}`
 		})
 		base64ToImage(data.uri, config.images_path, { fileName: name })
-		console.log(media)
 		media.save((err) => {
 			if (err) {
-				console.log(err)
 				return next(new errors.InternalError(err.message))
 				next()
 			}
