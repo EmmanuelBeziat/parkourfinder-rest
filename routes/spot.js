@@ -97,7 +97,7 @@ module.exports = (server) => {
 				const filename = `${date}-${random}.${ext}`
 
 				picturesURI.push({ filename: filename, uri: picture.uri })
-				picturesURL.push(`${config.base_url}/${filename}`)
+				picturesURL.push(`${config.medias_url}/${filename}`)
 			})
 		}
 
