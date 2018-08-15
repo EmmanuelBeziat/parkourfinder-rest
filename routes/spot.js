@@ -1,9 +1,11 @@
 /**
  * Module dependencies
  */
+const config = require('../config')
 const errors = require('restify-errors')
-const mongoosePatchUpdate = require('mongoose-patch-update')
-
+const randomstring = require('randomstring')
+const base64ToImage = require('base64-to-image')
+const jimp = require('jimp')
 /**
  * Models Schema
  */
@@ -82,6 +84,23 @@ module.exports = (server) => {
 			data = Object.assign({}, data, { _id: req.params.spot_id })
 		}
 
+		const hasNewPictures = data.newMedias.length
+
+		let picturesURL = []
+		let picturesURI = []
+
+		if (hasNewPictures) {
+			data.newMedias.forEach(picture => {
+				const date = Date.now()
+				const random = randomstring.generate({ length: 8, capitalization: 'lowercase' })
+				const ext = picture.filename.split('.').pop()
+				const filename = `${date}-${random}.${ext}`
+
+				picturesURI.push({ filename: filename, uri: picture.uri })
+				picturesURL.push(`${config.base_url}/${filename}`)
+			})
+		}
+
 		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
 			if (err) {
 				return next(
@@ -92,6 +111,10 @@ module.exports = (server) => {
 				return next(
 					new errors.ResourceNotFoundError('The resource you requested could not be found')
 				)
+			}
+
+			if (hasNewPictures) {
+				picturesURL.forEach(url => data.medias.push(url))
 			}
 
 			Spot.update({ _id: data._id }, data, (err) => {
@@ -101,45 +124,10 @@ module.exports = (server) => {
 					)
 				}
 
-				res.send(200, data)
-				next()
-			})
-		})
-	})
-
-	/**
-	 * PATCH
-	 */
-	server.patch('/spots/:spot_id', (req, res, next) =>{
-		if (!req.is('application/json')) {
-			return next(
-				new errors.InvalidContentError("Expects 'application/json'")
-			)
-		}
-
-		let data = req.body || {}
-
-		if (!data._id) {
-			data = Object.assign({}, data, { _id: req.params.spot_id })
-		}
-
-		Spot.findOne({ _id: req.params.spot_id }, (err, doc) => {
-			if (err) {
-				return next(
-					new errors.InvalidContentError(err.message)
-				)
-			}
-			else if (!doc) {
-				return next(
-					new errors.ResourceNotFoundError('The resource you requested could not be found')
-				)
-			}
-
-			Spot.mongoosePatchUpdate({ _id: data._id }, data, ['_id'], '', (err) => {
-				if (err) {
-					return next(
-						new errors.InvalidContentError(err.message)
-					)
+				if (hasNewPictures) {
+					picturesURI.forEach((picture, index) => {
+						base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
+					})
 				}
 
 				res.send(200, data)

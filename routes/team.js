@@ -2,7 +2,8 @@
  * Module dependencies
  */
 const errors = require('restify-errors')
-
+const mongoose = require('mongoose')
+const isObjectId = mongoose.Types.ObjectId.isValid
 /**
  * Models Schema
  */
@@ -52,17 +53,11 @@ module.exports = (server) => {
 	/**
 	 * GET
 	 */
-	server.get('/teams/:slug', (req, res, next) => {
-		Team.findOne({ slug: req.params.slug }, (err, doc) => {
-			if (err) {
-				return next(
-					new errors.InvalidContentError(err.message)
-				)
-			}
-
-			res.send(doc)
-			next()
-		})
+	server.get('/teams/:team', (req, res, next) => {
+		const promise = isObjectId(req.params.team)
+			? Team.findOne({ _id: req.params.team })
+			: Team.findOne({ slug: req.params.team })
+		promise.then(team => res.send(team)).catch(next)
 	})
 
 	/**
