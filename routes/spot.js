@@ -84,7 +84,7 @@ module.exports = (server) => {
 			data = Object.assign({}, data, { _id: req.params.spot_id })
 		}
 
-		const hasNewPictures = data.newMedias.length
+		const hasNewPictures = data.newMedias
 
 		let picturesURL = []
 		let picturesURI = []
