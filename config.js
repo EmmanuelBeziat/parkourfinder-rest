@@ -10,6 +10,7 @@ module.exports = {
 	images_path: process.env.IMAGES_PATH || '../medias/',
 	db: {
 		uri: process.env.MONGODB_URI || db.uri,
+		base: process.env.MONGODB_BASE || db.base,
 		user: process.env.MONGODB_USER || db.user,
 		pass: process.env.MONGODB_PASS || db.pass
 	}
