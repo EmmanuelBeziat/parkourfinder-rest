@@ -4,7 +4,8 @@
 	"description": "Node REST Api",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"deploy": "pm2 start index.js --name 'pkf-rest'",
+		"images": "imagemin ../images/* --out-dir=../images"
 	},
 	"repository": {
 		"type": "git",
