@@ -9,7 +9,8 @@ module.exports = {
 	medias_url: process.env.MEDIAS_URL || 'https://medias.parkourfinder.com',
 	images_path: process.env.IMAGES_PATH || '../medias/',
 	db: {
-		uri: process.env.MONGODB_URI || db.uri,
+		host: process.env.MONGODB_HOST || db.host,
+		port: process.env.MONGODB_URI || db.port,
 		base: process.env.MONGODB_BASE || db.base,
 		user: process.env.MONGODB_USER || db.user,
 		pass: process.env.MONGODB_PASS || db.pass
