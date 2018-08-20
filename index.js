@@ -39,7 +39,7 @@ server.use(cors.actual)
 server.listen(config.port, () => {
 	// establish connection to mongodb
 	mongoose.Promise = global.Promise
-	mongoose.connect(config.db.uri, { useNewUrlParser: true, user: config.db.user, pass: config.db.pass })
+	mongoose.connect(`mongodb://${config.db.user}:${config.db.pass}@${config.db.host}:${config.db.port}/${config.db.base}`, { useNewUrlParser: true })
 
 	const db = mongoose.connection
 
