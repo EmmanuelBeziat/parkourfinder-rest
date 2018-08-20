@@ -7,8 +7,6 @@ const mongoose = require('mongoose')
 const serveStatic = require('serve-static-restify')
 const corsMiddleware = require('restify-cors-middleware')
 
-console.log(config)
-
 /**
   * Initialize Server
   */
