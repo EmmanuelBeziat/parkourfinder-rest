@@ -19,11 +19,13 @@
 	"devDependencies": {},
 	"dependencies": {
 		"base64-to-image": "^1.0.2",
+		"imagemin": "^6.0.0",
 		"mongoose": "^5.2.7",
 		"mongoose-patch-update": "^1.0.6",
 		"mongoose-string-query": "^0.2.5",
 		"mongoose-timestamp": "^0.6.0",
 		"mongoose-url-slugs": "^1.0.2",
+		"node-yaml-config": "0.0.4",
 		"randomstring": "^1.1.5",
 		"restify": "^7.2.1",
 		"restify-cors-middleware": "^1.1.1",
