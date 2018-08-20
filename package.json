@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"deploy": "pm2 start index.js --name 'pkf-rest'",
-		"images": "imagemin ../images/* --out-dir=../images"
+		"images": "imagemin ../medias/* --out-dir=../medias"
 	},
 	"repository": {
 		"type": "git",
