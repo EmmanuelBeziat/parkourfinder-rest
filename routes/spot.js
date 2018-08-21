@@ -5,6 +5,7 @@ const config = require('../config')
 const errors = require('restify-errors')
 const randomstring = require('randomstring')
 const base64ToImage = require('base64-to-image')
+const sharp = require('sharp')
 
 /**
  * Models Schema
@@ -126,7 +127,15 @@ module.exports = (server) => {
 
 				if (hasNewPictures) {
 					picturesURI.forEach((picture, index) => {
-						base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
+						const fullPath = config.images_path + '/' + picture.filename
+						const fullPathMin = fullPath.substring(0, s.lastIndexOf(".")) + "-min" + s.substring(s.lastIndexOf("."))
+						// base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
+						sharp(new Buffer(picture, 'base64'))
+							.resize(1920, null)
+							.toFile(fullPath)
+						sharp(new Buffer(picture, 'base64'))
+							.resize(320, null)
+							.toFile(fullPathMin)
 					})
 				}
 
