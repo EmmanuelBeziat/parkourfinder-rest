@@ -127,8 +127,8 @@ module.exports = (server) => {
 
 				if (hasNewPictures) {
 					picturesURI.forEach((picture, index) => {
-						const fullPath = config.images_path + '/' + picture.filename
-						const fullPathMin = fullPath.substring(0, s.lastIndexOf(".")) + "-min" + s.substring(s.lastIndexOf("."))
+						// const fullPath = config.images_path + '/' + picture.filename
+						// const fullPathMin = fullPath.substring(0, fullPath.lastIndexOf(".")) + "-min" + fullPath.substring(fullPath.lastIndexOf("."))
 						base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
 						/* sharp(new Buffer(picture, 'base64'))
 							.resize(1920, null)
