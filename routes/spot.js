@@ -4,7 +4,6 @@
 const config = require('../config')
 const errors = require('restify-errors')
 const randomstring = require('randomstring')
-const base64ToImage = require('base64-to-image')
 const sharp = require('sharp')
 
 /**

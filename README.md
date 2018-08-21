@@ -11,15 +11,24 @@ Install dependencies with npm or yarn:
 $ sudo npm i
 ```
 
-Then, just add a `db.yaml` config file in the root folder, on this model:
+Then, just add a `config.yaml` config file in the root folder, on this model:
 
 ```yaml
 default:
-  host: 'localhost'
-  port: '27027'
-  base: 'mybase'
-  user: 'myuser'
-  pass: 'mypass'
+  app:
+    name: 'My app'
+    url: 'http://localhost:3030/'
+    port: 3000
+  db:
+    host: '127.0.0.1'
+    port: '27017'
+    base: 'myBase'
+    user: 'user'
+    pass: 'pass'
+  medias:
+    path: 'medias'
+    url: 'http://localhost:3000/medias'
+
 ```
 
 ## Launch

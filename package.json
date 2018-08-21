@@ -1,6 +1,6 @@
 {
 	"name": "parkourfinder-rest",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Node REST Api",
 	"main": "index.js",
 	"scripts": {
@@ -19,7 +19,6 @@
 	"homepage": "https://github.com/EmmanuelBeziat/parkourfinder-rest#readme",
 	"devDependencies": {},
 	"dependencies": {
-		"base64-to-image": "^1.0.2",
 		"imagemin": "^6.0.0",
 		"mongoose": "^5.2.7",
 		"mongoose-patch-update": "^1.0.6",
