@@ -129,13 +129,13 @@ module.exports = (server) => {
 					picturesURI.forEach((picture, index) => {
 						const fullPath = config.images_path + '/' + picture.filename
 						const fullPathMin = fullPath.substring(0, s.lastIndexOf(".")) + "-min" + s.substring(s.lastIndexOf("."))
-						// base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
-						sharp(new Buffer(picture, 'base64'))
+						base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
+						/* sharp(new Buffer(picture, 'base64'))
 							.resize(1920, null)
 							.toFile(fullPath)
 						sharp(new Buffer(picture, 'base64'))
 							.resize(320, null)
-							.toFile(fullPathMin)
+							.toFile(fullPathMin) */
 					})
 				}
 
