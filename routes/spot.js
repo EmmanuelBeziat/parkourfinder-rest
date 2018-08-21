@@ -126,16 +126,19 @@ module.exports = (server) => {
 				}
 
 				if (hasNewPictures) {
-					picturesURI.forEach((picture, index) => {
-						// const fullPath = config.images_path + '/' + picture.filename
-						// const fullPathMin = fullPath.substring(0, fullPath.lastIndexOf(".")) + "-min" + fullPath.substring(fullPath.lastIndexOf("."))
-						base64ToImage(picture.uri, config.images_path, { fileName: picture.filename })
-						/* sharp(new Buffer(picture, 'base64'))
+					picturesURI.forEach(picture => {
+						let base64Image = picture.uri.split(';base64,').pop()
+
+						const imgBuffer = Buffer.from(base64Image, 'base64')
+						sharp(imgBuffer)
 							.resize(1920, null)
-							.toFile(fullPath)
-						sharp(new Buffer(picture, 'base64'))
+							.toFile(`${config.images_path}/${picture.filename}`)
+							.catch(err => console.log(`downisze issue ${err}`))
+
+						sharp(imgBuffer)
 							.resize(320, null)
-							.toFile(fullPathMin) */
+							.toFile(`${config.images_path}/min/${picture.filename}`)
+							.catch(err => console.log(`downisze min issue ${err}`))
 					})
 				}
 
