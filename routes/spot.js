@@ -23,8 +23,6 @@ module.exports = (server) => {
 		}
 
 		let data = req.body || {}
-		let spot = new Spot(data)
-
 		const hasNewPictures = data.newMedias
 
 		let picturesURI = []
@@ -41,6 +39,8 @@ module.exports = (server) => {
 				data.medias.push(`${config.medias_url}/${filename}`)
 			})
 		}
+
+		let spot = new Spot(data)
 
 		spot.save((err) => {
 			if (err) {
@@ -185,7 +185,7 @@ module.exports = (server) => {
 	 * DELETE
 	 */
 	server.del('/spots/:spot_id', (req, res, next) => {
-		Spot.remove({ _id: req.params.spot_id }, (err) => {
+		Spot.deleteOne({ _id: req.params.spot_id }, (err) => {
 			if (err) {
 				return next(
 					new errors.InvalidContentError(err.message)
