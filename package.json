@@ -20,7 +20,7 @@
 	"devDependencies": {},
 	"dependencies": {
 		"imagemin": "^6.0.0",
-		"mongoose": "^5.2.7",
+		"mongoose": "^5.3.1",
 		"mongoose-patch-update": "^1.0.6",
 		"mongoose-string-query": "^0.2.5",
 		"mongoose-timestamp": "^0.6.0",
@@ -32,6 +32,6 @@
 		"restify-errors": "^6.1.1",
 		"restify-plugins": "^1.6.0",
 		"serve-static-restify": "^3.0.0",
-		"sharp": "^0.20.6"
+		"sharp": "^0.21.0"
 	}
 }
