@@ -27,10 +27,10 @@ module.exports = (server) => {
 
 		const hasNewPictures = data.newMedias
 
-		let picturesURL = []
 		let picturesURI = []
 
 		if (hasNewPictures) {
+			data.medias = []
 			data.newMedias.forEach(picture => {
 				const date = Date.now()
 				const random = randomstring.generate({ length: 8, capitalization: 'lowercase' })
@@ -38,7 +38,7 @@ module.exports = (server) => {
 				const filename = `${date}-${random}.${ext}`
 
 				picturesURI.push({ filename: filename, uri: picture.uri })
-				picturesURL.push(`${config.medias_url}/${filename}`)
+				data.medias.push(`${config.medias_url}/${filename}`)
 			})
 		}
 
