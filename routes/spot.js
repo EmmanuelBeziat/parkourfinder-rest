@@ -22,6 +22,8 @@ module.exports = (server) => {
 			)
 		}
 
+		console.log('1. route /spots')
+
 		let data = req.body || {}
 		const hasNewPictures = data.newMedias
 
@@ -48,6 +50,8 @@ module.exports = (server) => {
 				next()
 			}
 
+			console.log('2. save /spots')
+
 			if (hasNewPictures) {
 				picturesURI.forEach(picture => {
 					let base64Image = picture.uri.split(';base64,').pop()
@@ -66,6 +70,8 @@ module.exports = (server) => {
 			}
 
 			res.send(201)
+
+			console.log('3. next')
 			next()
 		})
 	})
