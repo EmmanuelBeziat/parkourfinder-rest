@@ -65,7 +65,7 @@ module.exports = (server) => {
 				})
 			}
 
-			res.send(201, { notify: `Spot "${spot.title}" successfully created` })
+			res.send(201, { notify: `Spot «${spot.title}» successfully created` })
 			next()
 		})
 	})
@@ -175,7 +175,7 @@ module.exports = (server) => {
 					})
 				}
 
-				res.send(200, data, { notify: `Spot "${data.title}" successfully created` })
+				res.send(200, data, { notify: `Spot «${data.title}» successfully created` })
 				next()
 			})
 		})
