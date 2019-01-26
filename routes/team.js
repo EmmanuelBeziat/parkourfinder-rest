@@ -29,7 +29,7 @@ module.exports = (server) => {
 				next()
 			}
 
-			res.send(201, { notify: `Team «team.name» successfully created` })
+			res.send(201, { notify: `Team «${team.name}» successfully created` })
 			next()
 		})
 	})
