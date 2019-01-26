@@ -4,6 +4,7 @@
 	"description": "Node REST Api",
 	"main": "index.js",
 	"scripts": {
+		"start": "node index.js",
 		"deploy": "pm2 start index.js --name 'pkf-rest'",
 		"images": "imagemin ../medias/* --out-dir=../medias"
 	},

@@ -23,13 +23,13 @@ module.exports = (server) => {
 		let data = req.body || {}
 
 		let team = new Team(data)
-		team.save((err) => {
+		team.save(err => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
 				next()
 			}
 
-			res.send(201)
+			res.send(201, { notify: `Team «team.name» successfully created` })
 			next()
 		})
 	})
@@ -112,7 +112,7 @@ module.exports = (server) => {
 				)
 			}
 
-			res.send(204)
+			res.send(204, { notify: 'Team successfully removed' })
 			next()
 		})
 	})
