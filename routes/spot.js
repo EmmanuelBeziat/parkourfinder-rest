@@ -81,7 +81,7 @@ module.exports = (server) => {
 				)
 			}
 
-			res.send(docs, { notify: 'List successfully returned' })
+			res.send(docs)
 			next()
 		})
 	})
@@ -97,7 +97,7 @@ module.exports = (server) => {
 				)
 			}
 
-			res.send(doc, { notify: 'Spot successfully returned' })
+			res.send(doc)
 			next()
 		})
 	})
