@@ -44,7 +44,6 @@ module.exports = (server) => {
 
 		spot.save(err => {
 			if (err) {
-				console.log(err)
 				return next(new errors.InternalError(err.message))
 				next()
 			}
@@ -66,7 +65,6 @@ module.exports = (server) => {
 				})
 			}
 
-			console.log('send success')
 			res.send(201, { notify: 'Spot successfully created' })
 			next()
 		})
@@ -83,7 +81,7 @@ module.exports = (server) => {
 				)
 			}
 
-			res.send(docs)
+			res.send(docs, { notify: 'List successfully returned' })
 			next()
 		})
 	})
@@ -99,7 +97,7 @@ module.exports = (server) => {
 				)
 			}
 
-			res.send(doc)
+			res.send(doc, { notify: 'Spot successfully returned' })
 			next()
 		})
 	})
@@ -177,7 +175,7 @@ module.exports = (server) => {
 					})
 				}
 
-				res.send(200, data)
+				res.send(200, data, { notify: 'Spot successfully edited' })
 				next()
 			})
 		})
@@ -194,7 +192,7 @@ module.exports = (server) => {
 				)
 			}
 
-			res.send(204)
+			res.send(204, { notify: 'Spot successfuly removed' })
 			next()
 		})
 	})
