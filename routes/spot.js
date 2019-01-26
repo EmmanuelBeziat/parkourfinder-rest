@@ -23,22 +23,6 @@ module.exports = (server) => {
 		}
 
 		let data = req.body || {}
-		const hasNewPictures = data.newMedias
-
-		let picturesURI = []
-
-		if (hasNewPictures) {
-			data.medias = []
-			data.newMedias.forEach(picture => {
-				const date = Date.now()
-				const random = randomstring.generate({ length: 8, capitalization: 'lowercase' })
-				const ext = picture.filename.split('.').pop()
-				const filename = `${date}-${random}.${ext}`
-
-				picturesURI.push({ filename: filename, uri: picture.uri })
-				data.medias.push(`${config.medias_url}/${filename}`)
-			})
-		}
 
 		let spot = new Spot(data)
 
@@ -46,23 +30,6 @@ module.exports = (server) => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
 				next()
-			}
-
-			if (hasNewPictures) {
-				picturesURI.forEach(picture => {
-					let base64Image = picture.uri.split(';base64,').pop()
-
-					const imgBuffer = Buffer.from(base64Image, 'base64')
-					sharp(imgBuffer)
-						.resize(1920, null)
-						.toFile(`${config.images_path}/${picture.filename}`)
-						.catch(err => console.log(`downisze issue ${err}`))
-
-					sharp(imgBuffer)
-						.resize(320, null)
-						.toFile(`${config.images_path}/min/${picture.filename}`)
-						.catch(err => console.log(`downisze min issue ${err}`))
-				})
 			}
 
 			res.send(201, { notify: 'Spot successfully created' })
