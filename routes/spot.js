@@ -42,8 +42,9 @@ module.exports = (server) => {
 
 		let spot = new Spot(data)
 
-		spot.save((err) => {
+		spot.save(err => {
 			if (err) {
+				console.log(err)
 				return next(new errors.InternalError(err.message))
 				next()
 			}
@@ -65,7 +66,8 @@ module.exports = (server) => {
 				})
 			}
 
-			res.send(201)
+			console.log('send success')
+			res.send(201, { notify: 'Spot successfully created' })
 			next()
 		})
 	})
