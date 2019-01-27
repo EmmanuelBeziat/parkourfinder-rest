@@ -42,7 +42,7 @@ module.exports = (server) => {
 
 		let spot = new Spot(data)
 
-		spot.save((err) => {
+		spot.save((err, item) => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
 				next()
@@ -74,9 +74,9 @@ module.exports = (server) => {
 	 * LIST
 	 */
 	server.get('/spots', (req, res, next) => {
-		Spot.apiQuery(req.params, (err, docs) => {
+		Spot.find(req.params, (err, docs) => {
 			if (err) {
-				return nex(
+				return next(
 					new errors.InvalidContentError(err.message)
 				)
 			}
