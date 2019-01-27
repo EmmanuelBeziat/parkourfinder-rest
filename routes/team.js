@@ -38,7 +38,7 @@ module.exports = (server) => {
 	 * LIST
 	 */
 	server.get('/teams', (req, res, next) => {
-		Team.apiQuery(req.params, (err, docs) => {
+		Team.find(req.params, (err, docs) => {
 			if (err) {
 				return nex(
 					new errors.InvalidContentError(err.message)
