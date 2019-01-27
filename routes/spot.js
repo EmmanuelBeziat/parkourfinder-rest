@@ -42,7 +42,7 @@ module.exports = (server) => {
 
 		let spot = new Spot(data)
 
-		spot.save((err, item) => {
+		spot.save((err) => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
 				next()
