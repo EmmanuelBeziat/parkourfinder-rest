@@ -42,7 +42,7 @@ module.exports = (server) => {
 
 		let spot = new Spot(data)
 
-		console.log(spot.save())
+		console.log(spot.save().then(item => { item }))
 
 		/* spot.save((err, item) => {
 			if (err) {
