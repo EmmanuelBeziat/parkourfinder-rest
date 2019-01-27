@@ -42,6 +42,8 @@ module.exports = (server) => {
 
 		let spot = new Spot(data)
 
+		console.log(spot)
+
 		spot.save(err => {
 			if (err) {
 				return next(new errors.InternalError(err.message))
